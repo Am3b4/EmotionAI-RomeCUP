@@ -6,4 +6,6 @@ The Artificial Intelligence detects if the person seen by the camera is smiling 
 
 ## Creation
 First I downloaded 2 datasets from Kaggle, than with a python script i moved the files to create a better file structure.
-
+I augmented the data by rotating, flipping and adding noise.
+The model i created is a Conv2D with more than 2.700.000 trainable parameters.
+I fitted the model for 10 generations and achived a 94% validation accuracy and a loss of 0.25
