@@ -4,6 +4,7 @@ import traceback
 import cProfile
 import pstats
 import keras
+import time
 import cv2
 
 # snakeviz ./STATS.prof
@@ -12,10 +13,12 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 def main():
 
-    model = keras.saving.load_model('NEW_save_at_8.keras')
+    model = keras.saving.load_model('LiteEmotionAI_7.keras')
     vid = cv2.VideoCapture(0)
 
     while True:
+
+        start_t = time.perf_counter()
 
         ret, img = vid.read()
 
@@ -25,31 +28,22 @@ def main():
             faceList = []
             faceListCord = []
             faces = face_cascade.detectMultiScale(gray, 1.3, minNeighbors=5)
-            try:
-                for i, (x, y, w, h) in enumerate(faces):
 
-                    padding = 1.2
+            for i, (x, y, w, h) in enumerate(faces):
 
-                    nw = w*padding
-                    nh = h*padding
+                mulyiplyer = 1.2
 
-                    difw = nw-w
-                    difh = nh-h
+                x = int(x/mulyiplyer)
+                y = int(y/mulyiplyer)
+                w = int(w*mulyiplyer)
+                h = int(h*mulyiplyer)
 
-                    x = int(x-difw/2)
-                    y = int(y-difh/2)
-                    w = int(nw)
-                    h = int(nh)
+                cv2.rectangle(img, (x, y), (x + w, y + h), (255, 255, 0), 2)
+                face = img[y:y + h, x:x + w]
+                face = cv2.resize(face, (48, 48))
 
-                    face = img[y:y + h, x:x + w]
-                    face = cv2.resize(face, (48, 48))
-                    cv2.rectangle(img, (x, y), (x + w, y + h), (255, 255, 0), 2)
-
-                    faceList.append(face)
-                    faceListCord.append((x, y, w, h))
-
-            except cv2.error:
-                pass
+                faceList.append(face)
+                faceListCord.append((x, y, w, h))
 
             if faceList:
                 font = cv2.FONT_HERSHEY_SIMPLEX
@@ -70,7 +64,13 @@ def main():
                         img = cv2.putText(img, f'Not Happy: {not_happy}%', org, font, fontScale,
                                           (0, 0, 255), thickness, cv2.LINE_AA, False)
 
+            end_t = time.perf_counter()
+            dif_t = end_t-start_t
+            FPS = int(1/dif_t)
+            img = cv2.putText(img, f'FPS: {FPS}', (0, 465), cv2.FONT_HERSHEY_SIMPLEX,  1, (0, 255, 0),
+                              1, cv2.LINE_AA, False)
             cv2.imshow('webcam', img)
+            print(f'FPS: {FPS}')
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
