@@ -45,12 +45,12 @@ def main():
     epochs = 50
 
     callbacks = [
-        keras.callbacks.ModelCheckpoint("NEW_save_at_{epoch}.keras"),
+        keras.callbacks.ModelCheckpoint("SuperLiteEmotionAI_{epoch}.keras"),
     ]
     model.compile(
         optimizer=keras.optimizers.Adam(3e-4),
         loss=keras.losses.BinaryCrossentropy(from_logits=True),
-        metrics=[keras.metrics.BinaryAccuracy(name="acc")],
+        metrics=[keras.metrics.BinaryAccuracy(name="acc")]
     )
 
     model.summary()
