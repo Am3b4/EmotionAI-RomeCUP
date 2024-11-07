@@ -12,6 +12,8 @@ import os
 
 # snakeviz ./STATS.prof
 
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
 emotion_list = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 emotion_dict = {0: 'happy', 1: 'not_happy'}
 
@@ -257,6 +259,10 @@ def train_val_split(n):
 
 
 def main():
+
+    model_rec = keras.saving.load_model('LiteEmotionAI_8.keras')
+    model_rec.summary()
+    time.sleep(999999999999999999)
 
     input_shape = (48, 48)
 

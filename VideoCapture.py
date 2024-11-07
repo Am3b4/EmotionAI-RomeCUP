@@ -12,7 +12,7 @@ import cv2
 # snakeviz ./STATS.prof
 
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-model = keras.saving.load_model('LiteEmotionAI_7.keras')
+model = keras.saving.load_model('SuperLiteEmotionAI_4.keras')
 
 
 def checkCoord(x, y):
@@ -144,4 +144,4 @@ if __name__ == '__main__':
 
     stats = pstats.Stats(pr)
     stats.sort_stats(pstats.SortKey.TIME)
-    stats.dump_stats(filename='STATS.prof')
+    stats.dump_stats(filename='STATSVid.prof')

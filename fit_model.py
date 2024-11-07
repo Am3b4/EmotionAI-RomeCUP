@@ -45,7 +45,7 @@ def main():
     epochs = 50
 
     callbacks = [
-        keras.callbacks.ModelCheckpoint("SuperLiteEmotionAI_{epoch}.keras"),
+        keras.callbacks.ModelCheckpoint("NewModel_{epoch}.keras"),
     ]
     model.compile(
         optimizer=keras.optimizers.Adam(3e-4),
