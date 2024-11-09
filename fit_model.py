@@ -36,6 +36,7 @@ def main():
         follow_links=False,
         crop_to_aspect_ratio=False,
         data_format=None,
+        shuffle=True
     )
 
     train_ds = train_ds.prefetch(tf_data.AUTOTUNE)
@@ -43,6 +44,8 @@ def main():
 
     model = make_model(input_shape=input_shape + (3,), num_classes=2)
     epochs = 50
+
+    model = keras.saving.load_model('NewModel_28.keras')
 
     callbacks = [
         keras.callbacks.ModelCheckpoint("NewModel_{epoch}.keras"),
