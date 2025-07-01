@@ -13,5 +13,5 @@ I fitted the model for 10 generations and achived a 94% validation accuracy and 
 The dataset on which the Ai was trained contained the entire spectrum of emotions (sadness, anger, fear etc.). Because of the difference in the amount of data labeld with different emotions was different, the data was augmented: different types of noise were added, images were rotated on the x and y axes, until the label distribution was uniform. 
 
 
-Later I traned a model with 260.000 paremeters (10 times less than the first model) and 93.7 accuracy on validation.
+Later I traned a model with 260.000 paremeters (10 times less than the first model) and achived an accuracy of 93.7 on validation.
 Also mananged to run it on the GPU via WSL (it was a nightmare), now training and inference are much faster, enabeling a 30 fps live demo, and training is 3-4 times faster
